@@ -29,7 +29,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
-                .map(user -> new UserDetailsImpl(user.getUsername(), user.getPassword(), user.getRole()))
+                .map(user -> new UserDetailsImpl(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getRole()))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 

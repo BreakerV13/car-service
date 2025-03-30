@@ -36,8 +36,10 @@ public class CarService {
             car.setBrand(updatedCar.getBrand());
             car.setModel(updatedCar.getModel());
             car.setPrice(updatedCar.getPrice());
+            car.setYear(updatedCar.getYear());
             car.setDescription(updatedCar.getDescription());
             car.setSold(updatedCar.isSold());
+            car.setPicture(updatedCar.getPicture());
             return carRepository.save(car);
         }).orElseThrow(() -> new RuntimeException("Car not found"));
     }
