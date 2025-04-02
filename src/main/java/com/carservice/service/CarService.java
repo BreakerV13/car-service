@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CarService {
 
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private RecommendationService recommendationService;
 
     public List<Car> getAllCars() {
         return carRepository.findAll();
@@ -29,6 +32,14 @@ public class CarService {
 
     public List<Car> searchCars(String query) {
         return carRepository.findByBrandContainingOrModelContaining(query, query);
+    }
+
+    public List<Car> recommendCars(String query) {
+        List<Car> cars = carRepository.findByBrandContainingOrModelContaining(query, query);
+        Set<Long> recommendation = recommendationService.recommendation(cars);
+
+        List<Car> allById = carRepository.findAllById(recommendation);
+        return allById;
     }
 
     public Car updateCar(Long id, Car updatedCar) {
