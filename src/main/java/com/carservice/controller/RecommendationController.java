@@ -19,7 +19,8 @@ public class RecommendationController {
     private CarService carService;
 
     @GetMapping("/search")
-    public List<Car> searchCars(@RequestParam(name = "query") String query) {
-        return carService.recommendCars(query);
+    public List<Car> searchCars(@RequestParam(name = "brand", required = false) String brand,
+                                @RequestParam(name = "model", required = false) String model) {
+        return carService.recommendCars(brand, model);
     }
 }

@@ -30,12 +30,12 @@ public class CarService {
         return carRepository.save(car);
     }
 
-    public List<Car> searchCars(String query) {
-        return carRepository.findByBrandContainingOrModelContaining(query, query);
+    public List<Car> searchCars(String brand, String model) {
+        return carRepository.findByBrandContainingOrModelContaining(brand, model);
     }
 
-    public List<Car> recommendCars(String query) {
-        List<Car> cars = carRepository.findByBrandContainingOrModelContaining(query, query);
+    public List<Car> recommendCars(String brand, String model) {
+        List<Car> cars = searchCars(brand, model);
         Set<Long> recommendation = recommendationService.recommendation(cars);
 
         List<Car> allById = carRepository.findAllById(recommendation);

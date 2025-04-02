@@ -42,7 +42,8 @@ public class CarController {
     }
 
     @GetMapping("/search")
-    public List<Car> searchCars(@RequestParam(name = "query") String query) {
-        return carService.searchCars(query);
+    public List<Car> searchCars(@RequestParam(name = "brand", required = false) String brand,
+                                @RequestParam(name = "model", required = false) String model) {
+        return carService.searchCars(brand, model);
     }
 }
